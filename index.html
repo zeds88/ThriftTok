@@ -1,605 +1,607 @@
-import React, { useState, useEffect } from 'react';
-import { Scan, Sparkles, Map, Trophy, Camera, CreditCard, ChevronRight, Play, Star, Zap, TrendingUp, Users, MapPin, Check, ArrowRight, Menu, X } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThriftTok - Scan. Price. List. Win.</title>
+  <meta name="description" content="The gamified thrift intelligence platform. Know the value of anything in seconds. List like a pro. Compete with the community.">
+  <meta property="og:title" content="ThriftTok - Scan. Price. List. Win.">
+  <meta property="og:description" content="The gamified thrift intelligence platform. Know the value of anything in seconds.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwindcss.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              950: '#0a0f1a',
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+              600: '#475569',
+              500: '#64748b',
+              400: '#94a3b8',
+              300: '#cbd5e1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes scan {
+      0% { top: 1rem; opacity: 1; }
+      100% { top: 11rem; opacity: 0.5; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .animate-float-delayed { animation: float 3s ease-in-out infinite; animation-delay: 0.5s; }
+    .animate-float-delayed-2 { animation: float 3.5s ease-in-out infinite; animation-delay: 1s; }
+    .scan-line { animation: scan 2s ease-in-out infinite; }
+    .gradient-text { background: linear-gradient(to right, #34d399, #22d3ee, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-x-hidden">
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-2">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center">
+            <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+          </div>
+          <span class="text-xl font-bold">Thrift<span class="text-emerald-400">Tok</span></span>
+        </div>
+        
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#features" class="text-sm text-slate-300 hover:text-white transition">Features</a>
+          <a href="#pricing" class="text-sm text-slate-300 hover:text-white transition">Pricing</a>
+          <a href="#community" class="text-sm text-slate-300 hover:text-white transition">Community</a>
+          <a href="sms:+18337758007" class="px-4 py-2 text-sm font-medium text-slate-900 bg-white rounded-lg hover:bg-slate-100 transition">
+            Try Now - Text Us!
+          </a>
+        </div>
 
-export default function ThriftTokLanding() {
-  const [activeFeature, setActiveFeature] = useState(0);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scanAnimation, setScanAnimation] = useState(false);
+        <button id="mobileMenuBtn" class="md:hidden">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </div>
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % 4);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-slate-900 border-t border-white/5 px-4 py-4 space-y-4">
+      <a href="#features" class="block text-slate-300">Features</a>
+      <a href="#pricing" class="block text-slate-300">Pricing</a>
+      <a href="#community" class="block text-slate-300">Community</a>
+      <a href="sms:+18337758007" class="block w-full px-4 py-2 text-sm font-medium text-slate-900 bg-white rounded-lg text-center">
+        Try Now - Text Us!
+      </a>
+    </div>
+  </nav>
 
-  useEffect(() => {
-    const scanInterval = setInterval(() => {
-      setScanAnimation(true);
-      setTimeout(() => setScanAnimation(false), 2000);
-    }, 5000);
-    return () => clearInterval(scanInterval);
-  }, []);
+  <!-- Hero Section -->
+  <section class="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+    <!-- Background Effects -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-emerald-500/5 to-cyan-500/5 rounded-full blur-3xl"></div>
+    </div>
 
-  const features = [
-    { icon: Scan, title: 'Quick Scan', desc: 'Price any item in under 5 seconds', color: 'from-emerald-400 to-cyan-400' },
-    { icon: Sparkles, title: 'AI Powered', desc: 'Smart pricing & listing generation', color: 'from-violet-400 to-purple-400' },
-    { icon: Map, title: 'Thrift Maps', desc: 'Find hotspots near you', color: 'from-orange-400 to-red-400' },
-    { icon: Trophy, title: 'Gamified', desc: 'Compete & climb leaderboards', color: 'from-yellow-400 to-amber-400' },
-  ];
+    <div class="relative max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Content -->
+        <div class="text-center lg:text-left">
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm mb-6">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            Now with AI-powered pricing
+          </div>
+          
+          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+            Scan. Price.
+            <br>
+            <span class="gradient-text">List. Win.</span>
+          </h1>
+          
+          <p class="text-xl text-slate-400 mb-8 max-w-lg mx-auto lg:mx-0">
+            The gamified thrift intelligence platform. Know the value of anything in seconds. List like a pro. Compete with the community.
+          </p>
 
-  const stats = [
-    { value: '2.3M+', label: 'Items Scanned' },
-    { value: '$847K', label: 'Profit Found' },
-    { value: '156K', label: 'Active Hunters' },
-    { value: '4.9★', label: 'App Rating' },
-  ];
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
+            <a href="sms:+18337758007" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl font-semibold text-lg hover:shadow-lg hover:shadow-emerald-500/25 transition-all transform hover:scale-105 flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>
+              Text to Try - $2/scan
+            </a>
+            <a href="#how-it-works" class="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-lg hover:bg-white/10 transition flex items-center justify-center">
+              How It Works
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+          </div>
 
-  const testimonials = [
-    { name: 'Sarah M.', handle: '@thriftqueen', text: 'Made $2,400 last month using Thrift Tok. The AI pricing is scary accurate! 🔥', avatar: '👩‍🦰', profit: '+$2,400' },
-    { name: 'Marcus J.', handle: '@flipking', text: 'The store hotspot feature is a game changer. Found a vintage Pendleton for $8, sold for $340.', avatar: '👨🏾', profit: '+$332' },
-    { name: 'Emily R.', handle: '@vintagehunter', text: 'Finally an app that makes listing easy. One tap and I\'m cross-posted everywhere.', avatar: '👩🏻', profit: '+$890' },
-  ];
-
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-x-hidden">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center">
-                <Scan className="w-6 h-6 text-slate-900" />
+          <!-- Social Proof -->
+          <div class="flex items-center justify-center lg:justify-start space-x-4">
+            <div class="flex -space-x-3">
+              <div class="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 flex items-center justify-center text-lg">🧑🏻</div>
+              <div class="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 flex items-center justify-center text-lg">👩🏾</div>
+              <div class="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 flex items-center justify-center text-lg">👨🏼</div>
+              <div class="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 flex items-center justify-center text-lg">👩🏻‍🦰</div>
+              <div class="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 flex items-center justify-center text-lg">🧑🏽</div>
+            </div>
+            <div class="text-left">
+              <div class="flex items-center text-yellow-400">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
               </div>
-              <span className="text-xl font-bold">Thrift<span className="text-emerald-400">Tok</span></span>
+              <p class="text-sm text-slate-400">Resellers love us</p>
             </div>
-            
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-sm text-slate-300 hover:text-white transition">Features</a>
-              <a href="#pricing" className="text-sm text-slate-300 hover:text-white transition">Pricing</a>
-              <a href="#community" className="text-sm text-slate-300 hover:text-white transition">Community</a>
-              <button className="px-4 py-2 text-sm font-medium text-slate-900 bg-white rounded-lg hover:bg-slate-100 transition">
-                Download App
-              </button>
-            </div>
-
-            <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-slate-900 border-t border-white/5 px-4 py-4 space-y-4">
-            <a href="#features" className="block text-slate-300">Features</a>
-            <a href="#pricing" className="block text-slate-300">Pricing</a>
-            <a href="#community" className="block text-slate-300">Community</a>
-            <button className="w-full px-4 py-2 text-sm font-medium text-slate-900 bg-white rounded-lg">
-              Download App
-            </button>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        {/* Background Effects */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-emerald-500/5 to-cyan-500/5 rounded-full blur-3xl" />
-        </div>
-
-        <div className="relative max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="text-center lg:text-left">
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm mb-6">
-                <Zap className="w-4 h-4 mr-2" />
-                Now with AI-powered pricing
-              </div>
-              
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-                Scan. Price.
-                <br />
-                <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-                  List. Win.
-                </span>
-              </h1>
-              
-              <p className="text-xl text-slate-400 mb-8 max-w-lg mx-auto lg:mx-0">
-                The gamified thrift intelligence platform. Know the value of anything in seconds. List like a pro. Compete with the community.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
-                <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl font-semibold text-lg hover:shadow-lg hover:shadow-emerald-500/25 transition-all transform hover:scale-105 flex items-center justify-center">
-                  <Play className="w-5 h-5 mr-2 fill-current" />
-                  Start Free
-                </button>
-                <button className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-semibold text-lg hover:bg-white/10 transition flex items-center justify-center">
-                  Watch Demo
-                  <ChevronRight className="w-5 h-5 ml-2" />
-                </button>
-              </div>
-
-              {/* Social Proof */}
-              <div className="flex items-center justify-center lg:justify-start space-x-4">
-                <div className="flex -space-x-3">
-                  {['🧑🏻', '👩🏾', '👨🏼', '👩🏻‍🦰', '🧑🏽'].map((emoji, i) => (
-                    <div key={i} className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 flex items-center justify-center text-lg">
-                      {emoji}
+        <!-- Right Content - Phone Mockup -->
+        <div class="relative">
+          <div class="relative mx-auto w-[300px] sm:w-[320px]">
+            <!-- Phone Frame -->
+            <div class="relative bg-slate-900 rounded-[3rem] p-3 shadow-2xl shadow-black/50 border border-slate-700">
+              <div class="bg-slate-950 rounded-[2.5rem] overflow-hidden">
+                <!-- Notch -->
+                <div class="h-8 bg-slate-950 flex items-center justify-center">
+                  <div class="w-24 h-6 bg-black rounded-full"></div>
+                </div>
+                
+                <!-- App Content -->
+                <div class="h-[520px] bg-gradient-to-b from-slate-900 to-slate-950 p-4">
+                  <!-- Scanner View -->
+                  <div class="relative h-48 bg-slate-800 rounded-2xl overflow-hidden mb-4">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <div class="text-6xl">👟</div>
                     </div>
-                  ))}
-                </div>
-                <div className="text-left">
-                  <div className="flex items-center text-yellow-400">
-                    {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
+                    <!-- Scan Line Animation -->
+                    <div class="absolute left-4 right-4 h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent scan-line"></div>
+                    <!-- Corner Brackets -->
+                    <div class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-emerald-400 rounded-tl"></div>
+                    <div class="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-emerald-400 rounded-tr"></div>
+                    <div class="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-emerald-400 rounded-bl"></div>
+                    <div class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-emerald-400 rounded-br"></div>
                   </div>
-                  <p className="text-sm text-slate-400">156K+ hunters love us</p>
-                </div>
-              </div>
-            </div>
 
-            {/* Right Content - Phone Mockup */}
-            <div className="relative">
-              <div className="relative mx-auto w-[300px] sm:w-[320px]">
-                {/* Phone Frame */}
-                <div className="relative bg-slate-900 rounded-[3rem] p-3 shadow-2xl shadow-black/50 border border-slate-700">
-                  <div className="bg-slate-950 rounded-[2.5rem] overflow-hidden">
-                    {/* Notch */}
-                    <div className="h-8 bg-slate-950 flex items-center justify-center">
-                      <div className="w-24 h-6 bg-black rounded-full" />
+                  <!-- Price Card -->
+                  <div class="bg-slate-800/50 rounded-2xl p-4 border border-slate-700 mb-4">
+                    <div class="flex items-start justify-between mb-3">
+                      <div>
+                        <h3 class="font-semibold text-sm">Nike Dunk Low "Panda"</h3>
+                        <p class="text-xs text-slate-400">SKU: DD1391-100</p>
+                      </div>
+                      <div class="px-2 py-1 bg-emerald-500/20 rounded-lg">
+                        <span class="text-emerald-400 text-xs font-bold">🔥 87</span>
+                      </div>
                     </div>
                     
-                    {/* App Content */}
-                    <div className="h-[520px] bg-gradient-to-b from-slate-900 to-slate-950 p-4">
-                      {/* Scanner View */}
-                      <div className="relative h-48 bg-slate-800 rounded-2xl overflow-hidden mb-4">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-6xl">👟</div>
-                        </div>
-                        {/* Scan Line Animation */}
-                        <div className={`absolute left-4 right-4 h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent transition-all duration-2000 ${scanAnimation ? 'top-4 opacity-100' : 'top-44 opacity-0'}`} 
-                             style={{ animation: scanAnimation ? 'scan 2s ease-in-out' : 'none' }} />
-                        {/* Corner Brackets */}
-                        <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-emerald-400 rounded-tl" />
-                        <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-emerald-400 rounded-tr" />
-                        <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-emerald-400 rounded-bl" />
-                        <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-emerald-400 rounded-br" />
+                    <div class="grid grid-cols-3 gap-2 mb-3">
+                      <div class="text-center p-2 bg-slate-900/50 rounded-lg">
+                        <p class="text-emerald-400 font-bold">$248</p>
+                        <p class="text-xs text-slate-500">Avg Price</p>
                       </div>
-
-                      {/* Price Card */}
-                      <div className="bg-slate-800/50 rounded-2xl p-4 border border-slate-700 mb-4">
-                        <div className="flex items-start justify-between mb-3">
-                          <div>
-                            <h3 className="font-semibold text-sm">Nike Dunk Low "Panda"</h3>
-                            <p className="text-xs text-slate-400">SKU: DD1391-100</p>
-                          </div>
-                          <div className="px-2 py-1 bg-emerald-500/20 rounded-lg">
-                            <span className="text-emerald-400 text-xs font-bold">🔥 87</span>
-                          </div>
-                        </div>
-                        
-                        <div className="grid grid-cols-3 gap-2 mb-3">
-                          <div className="text-center p-2 bg-slate-900/50 rounded-lg">
-                            <p className="text-emerald-400 font-bold">$248</p>
-                            <p className="text-xs text-slate-500">Avg Price</p>
-                          </div>
-                          <div className="text-center p-2 bg-slate-900/50 rounded-lg">
-                            <p className="text-cyan-400 font-bold">3.2d</p>
-                            <p className="text-xs text-slate-500">Avg Sell</p>
-                          </div>
-                          <div className="text-center p-2 bg-slate-900/50 rounded-lg">
-                            <p className="text-yellow-400 font-bold">$180+</p>
-                            <p className="text-xs text-slate-500">Profit</p>
-                          </div>
-                        </div>
-
-                        <button className="w-full py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg text-sm font-semibold">
-                          📸 List Now
-                        </button>
+                      <div class="text-center p-2 bg-slate-900/50 rounded-lg">
+                        <p class="text-cyan-400 font-bold">3.2d</p>
+                        <p class="text-xs text-slate-500">Avg Sell</p>
                       </div>
-
-                      {/* Quick Stats */}
-                      <div className="flex items-center justify-between px-2">
-                        <div className="text-center">
-                          <p className="text-lg font-bold text-emerald-400">24</p>
-                          <p className="text-xs text-slate-500">Scans</p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-lg font-bold text-yellow-400">🔥12</p>
-                          <p className="text-xs text-slate-500">Streak</p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-lg font-bold text-cyan-400">#47</p>
-                          <p className="text-xs text-slate-500">Rank</p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-lg font-bold text-purple-400">2,340</p>
-                          <p className="text-xs text-slate-500">XP</p>
-                        </div>
+                      <div class="text-center p-2 bg-slate-900/50 rounded-lg">
+                        <p class="text-yellow-400 font-bold">$180+</p>
+                        <p class="text-xs text-slate-500">Profit</p>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* Floating Elements */}
-                <div className="absolute -left-16 top-20 bg-slate-800 rounded-xl p-3 shadow-xl border border-slate-700 animate-bounce" style={{ animationDuration: '3s' }}>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center">
-                      <TrendingUp className="w-4 h-4 text-emerald-400" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold">+$340</p>
-                      <p className="text-xs text-slate-500">Profit Found</p>
-                    </div>
+                    <button class="w-full py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg text-sm font-semibold">
+                      📸 List Now
+                    </button>
                   </div>
-                </div>
 
-                <div className="absolute -right-12 top-40 bg-slate-800 rounded-xl p-3 shadow-xl border border-slate-700 animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}>
-                  <div className="flex items-center space-x-2">
-                    <div className="text-2xl">🔥</div>
-                    <div>
-                      <p className="text-xs font-semibold">Store HOT</p>
-                      <p className="text-xs text-slate-500">8 hunters</p>
+                  <!-- Quick Stats -->
+                  <div class="flex items-center justify-between px-2">
+                    <div class="text-center">
+                      <p class="text-lg font-bold text-emerald-400">24</p>
+                      <p class="text-xs text-slate-500">Scans</p>
                     </div>
-                  </div>
-                </div>
-
-                <div className="absolute -left-8 bottom-24 bg-slate-800 rounded-xl p-3 shadow-xl border border-slate-700 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '1s' }}>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-yellow-500/20 rounded-lg flex items-center justify-center">
-                      <Trophy className="w-4 h-4 text-yellow-400" />
+                    <div class="text-center">
+                      <p class="text-lg font-bold text-yellow-400">🔥12</p>
+                      <p class="text-xs text-slate-500">Streak</p>
                     </div>
-                    <div>
-                      <p className="text-xs font-semibold">Level Up!</p>
-                      <p className="text-xs text-slate-500">Reached Lv.24</p>
+                    <div class="text-center">
+                      <p class="text-lg font-bold text-cyan-400">#47</p>
+                      <p class="text-xs text-slate-500">Rank</p>
+                    </div>
+                    <div class="text-center">
+                      <p class="text-lg font-bold text-purple-400">2,340</p>
+                      <p class="text-xs text-slate-500">XP</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Stats Bar */}
-      <section className="py-12 border-y border-white/5 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, i) => (
-              <div key={i} className="text-center">
-                <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-                  {stat.value}
-                </p>
-                <p className="text-slate-400 text-sm mt-1">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              Everything you need to
-              <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent"> flip smarter</span>
-            </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              From scanning to listing to competing—Thrift Tok has you covered
-            </p>
-          </div>
-
-          {/* Feature Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {features.map((feature, i) => (
-              <div
-                key={i}
-                className={`relative p-6 rounded-2xl border transition-all duration-500 cursor-pointer group ${
-                  activeFeature === i
-                    ? 'bg-slate-800/80 border-emerald-500/50 scale-105 shadow-xl shadow-emerald-500/10'
-                    : 'bg-slate-800/30 border-slate-700 hover:border-slate-600'
-                }`}
-                onClick={() => setActiveFeature(i)}
-              >
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <feature.icon className="w-6 h-6 text-slate-900" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-slate-400 text-sm">{feature.desc}</p>
-                {activeFeature === i && (
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-b-2xl" />
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Feature Detail Cards */}
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* AI Suite */}
-            <div className="bg-gradient-to-br from-violet-500/10 to-purple-500/10 rounded-3xl p-8 border border-violet-500/20">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-400 to-purple-400 flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-white" />
+            <!-- Floating Elements -->
+            <div class="absolute -left-16 top-20 bg-slate-800 rounded-xl p-3 shadow-xl border border-slate-700 animate-float hidden sm:block">
+              <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+                  <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">AI Intelligence Suite</h3>
-                  <p className="text-slate-400 text-sm">Three agents, infinite possibilities</p>
+                  <p class="text-xs font-semibold">+$340</p>
+                  <p class="text-xs text-slate-500">Profit Found</p>
                 </div>
-              </div>
-              
-              <div className="space-y-4">
-                {[
-                  { name: 'Pricing Agent', desc: 'Condition-aware price recommendations', icon: '💰' },
-                  { name: 'Listing Agent', desc: 'One-tap professional listings', icon: '📝' },
-                  { name: 'Product Guide', desc: 'Authentication & expertise on demand', icon: '🔍' },
-                ].map((agent, i) => (
-                  <div key={i} className="flex items-center space-x-3 p-3 bg-slate-900/50 rounded-xl">
-                    <span className="text-2xl">{agent.icon}</span>
-                    <div>
-                      <p className="font-semibold text-sm">{agent.name}</p>
-                      <p className="text-xs text-slate-400">{agent.desc}</p>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
 
-            {/* Gamification */}
-            <div className="bg-gradient-to-br from-yellow-500/10 to-amber-500/10 rounded-3xl p-8 border border-yellow-500/20">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-400 flex items-center justify-center">
-                  <Trophy className="w-6 h-6 text-white" />
+            <div class="absolute -right-12 top-40 bg-slate-800 rounded-xl p-3 shadow-xl border border-slate-700 animate-float-delayed hidden sm:block">
+              <div class="flex items-center space-x-2">
+                <div class="text-2xl">🔥</div>
+                <div>
+                  <p class="text-xs font-semibold">Store HOT</p>
+                  <p class="text-xs text-slate-500">8 hunters</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="absolute -left-8 bottom-24 bg-slate-800 rounded-xl p-3 shadow-xl border border-slate-700 animate-float-delayed-2 hidden sm:block">
+              <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                  <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Gamified Experience</h3>
-                  <p className="text-slate-400 text-sm">Compete, earn, and level up</p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { label: 'Daily Challenges', value: '🎯', sub: '3 new daily' },
-                  { label: 'Leaderboards', value: '🏆', sub: '5 categories' },
-                  { label: 'XP & Levels', value: '⭐', sub: 'Up to Lv.100' },
-                  { label: 'Streaks', value: '🔥', sub: '3x XP boost' },
-                ].map((item, i) => (
-                  <div key={i} className="p-3 bg-slate-900/50 rounded-xl text-center">
-                    <span className="text-2xl">{item.value}</span>
-                    <p className="font-semibold text-sm mt-1">{item.label}</p>
-                    <p className="text-xs text-slate-500">{item.sub}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Maps */}
-            <div className="bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-3xl p-8 border border-orange-500/20">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Thrift Maps</h3>
-                  <p className="text-slate-400 text-sm">Real-time store intelligence</p>
-                </div>
-              </div>
-
-              <div className="relative h-40 bg-slate-900/50 rounded-xl overflow-hidden">
-                <div className="absolute inset-0 opacity-50">
-                  {/* Simulated map grid */}
-                  <div className="w-full h-full" style={{ 
-                    backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
-                    backgroundSize: '20px 20px'
-                  }} />
-                </div>
-                {/* Hotspot indicators */}
-                <div className="absolute top-8 left-12 flex flex-col items-center animate-pulse">
-                  <span className="text-xl">🔥🔥🔥</span>
-                  <span className="text-xs bg-slate-800 px-2 py-0.5 rounded mt-1">Goodwill</span>
-                </div>
-                <div className="absolute top-20 right-16 flex flex-col items-center">
-                  <span className="text-lg">🔥</span>
-                  <span className="text-xs bg-slate-800 px-2 py-0.5 rounded mt-1">Savers</span>
-                </div>
-                <div className="absolute bottom-8 left-1/3 flex flex-col items-center">
-                  <span className="text-lg">🔥🔥</span>
-                  <span className="text-xs bg-slate-800 px-2 py-0.5 rounded mt-1">Unique</span>
-                </div>
-                <div className="absolute bottom-12 right-8">
-                  <div className="w-3 h-3 bg-blue-500 rounded-full border-2 border-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* Photo Booth */}
-            <div className="bg-gradient-to-br from-cyan-500/10 to-emerald-500/10 rounded-3xl p-8 border border-cyan-500/20">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center">
-                  <Camera className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Photo Booth</h3>
-                  <p className="text-slate-400 text-sm">Pro listings in seconds</p>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-3">
-                <div className="flex-1 space-y-2">
-                  {['Guided capture', 'Auto background removal', 'Smart enhancement', 'One-tap cross-post'].map((item, i) => (
-                    <div key={i} className="flex items-center space-x-2 text-sm">
-                      <Check className="w-4 h-4 text-emerald-400" />
-                      <span className="text-slate-300">{item}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="w-24 h-32 bg-slate-900 rounded-xl flex items-center justify-center border-2 border-dashed border-slate-600">
-                  <Camera className="w-8 h-8 text-slate-600" />
+                  <p class="text-xs font-semibold">Level Up!</p>
+                  <p class="text-xs text-slate-500">Reached Lv.24</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Testimonials */}
-      <section id="community" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              Loved by <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">156K+ hunters</span>
-            </h2>
-            <p className="text-xl text-slate-400">See what the community is saying</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <div key={i} className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 hover:border-emerald-500/30 transition">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-2xl">
-                    {t.avatar}
-                  </div>
-                  <div>
-                    <p className="font-semibold">{t.name}</p>
-                    <p className="text-sm text-slate-400">{t.handle}</p>
-                  </div>
-                  <div className="ml-auto px-2 py-1 bg-emerald-500/20 rounded-lg">
-                    <span className="text-emerald-400 text-sm font-bold">{t.profit}</span>
-                  </div>
-                </div>
-                <p className="text-slate-300">{t.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              Simple, <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">transparent</span> pricing
-            </h2>
-            <p className="text-xl text-slate-400">No contracts. Pay only for what you use.</p>
-          </div>
-
-          {/* Credit Packs */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {[
-              { name: 'Starter', credits: 50, price: 4.99, per: 0.10 },
-              { name: 'Standard', credits: 200, price: 14.99, per: 0.075 },
-              { name: 'Pro', credits: 500, price: 29.99, per: 0.06, popular: true },
-              { name: 'Bulk', credits: 1500, price: 74.99, per: 0.05 },
-            ].map((plan, i) => (
-              <div key={i} className={`relative p-6 rounded-2xl border ${plan.popular ? 'bg-gradient-to-b from-emerald-500/10 to-cyan-500/10 border-emerald-500/30' : 'bg-slate-800/30 border-slate-700'}`}>
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full text-xs font-bold text-slate-900">
-                    BEST VALUE
-                  </div>
-                )}
-                <h3 className="text-lg font-semibold mb-1">{plan.name}</h3>
-                <p className="text-3xl font-bold mb-1">{plan.credits} <span className="text-lg font-normal text-slate-400">credits</span></p>
-                <p className="text-emerald-400 font-semibold text-2xl mb-2">${plan.price}</p>
-                <p className="text-sm text-slate-500 mb-4">${plan.per.toFixed(3)}/credit</p>
-                <button className={`w-full py-2 rounded-lg font-semibold transition ${plan.popular ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-900' : 'bg-slate-700 hover:bg-slate-600'}`}>
-                  Buy Credits
-                </button>
-              </div>
-            ))}
-          </div>
-
-          {/* Pro Subscription */}
-          <div className="bg-gradient-to-r from-violet-500/10 via-purple-500/10 to-violet-500/10 rounded-3xl p-8 border border-violet-500/20">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              <div>
-                <div className="inline-flex items-center px-3 py-1 rounded-full bg-violet-500/20 text-violet-400 text-sm mb-4">
-                  <Star className="w-4 h-4 mr-2 fill-current" />
-                  For Power Users
-                </div>
-                <h3 className="text-3xl font-bold mb-2">Thrift Pro</h3>
-                <p className="text-slate-400 mb-6">Unlimited scans, priority AI, and exclusive features for serious resellers.</p>
-                <div className="flex items-baseline space-x-2 mb-6">
-                  <span className="text-5xl font-bold">$19.99</span>
-                  <span className="text-slate-400">/month</span>
-                </div>
-                <button className="px-8 py-3 bg-gradient-to-r from-violet-500 to-purple-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-violet-500/25 transition">
-                  Start Pro Trial
-                </button>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  '500 credits/month',
-                  'Unlimited image scans',
-                  'Priority AI processing',
-                  'Advanced analytics',
-                  '20% bonus on credits',
-                  'Early feature access',
-                ].map((feature, i) => (
-                  <div key={i} className="flex items-center space-x-2">
-                    <Check className="w-5 h-5 text-violet-400 flex-shrink-0" />
-                    <span className="text-sm">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            Ready to thrift
-            <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent"> smarter</span>?
-          </h2>
-          <p className="text-xl text-slate-400 mb-8">
-            Join 156,000+ hunters making better sourcing decisions every day.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl font-semibold text-lg hover:shadow-lg hover:shadow-emerald-500/25 transition-all transform hover:scale-105 flex items-center justify-center">
-              Download Free
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </button>
-            <div className="flex items-center space-x-2 text-slate-400">
-              <span>📱</span>
-              <span className="text-sm">iOS & Android</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center">
-                <Scan className="w-4 h-4 text-slate-900" />
-              </div>
-              <span className="font-bold">Thrift<span className="text-emerald-400">Tok</span></span>
-            </div>
-            <div className="flex items-center space-x-6 text-sm text-slate-400">
-              <a href="#" className="hover:text-white transition">Privacy</a>
-              <a href="#" className="hover:text-white transition">Terms</a>
-              <a href="#" className="hover:text-white transition">Support</a>
-              <a href="#" className="hover:text-white transition">Blog</a>
-            </div>
-            <p className="text-sm text-slate-500 mt-4 md:mt-0">© 2025 Thrift Tok. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-
-      <style jsx>{`
-        @keyframes scan {
-          0% { top: 1rem; opacity: 1; }
-          100% { top: 11rem; opacity: 0.5; }
-        }
-      `}</style>
+      </div>
     </div>
-  );
-}
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-12 border-y border-white/5 bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold mb-2">How It Works</h2>
+        <p class="text-slate-400">3 simple steps to profit</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center text-3xl">1️⃣</div>
+          <h3 class="font-semibold mb-2">Text a Link</h3>
+          <p class="text-slate-400 text-sm">Send any Facebook Marketplace URL to our number</p>
+          <p class="text-emerald-400 font-mono mt-2">(833) 775-8007</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-violet-400 to-purple-400 flex items-center justify-center text-3xl">2️⃣</div>
+          <h3 class="font-semibold mb-2">AI Analyzes</h3>
+          <p class="text-slate-400 text-sm">Our AI scrapes the listing and finds comparable sales</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-400 flex items-center justify-center text-3xl">3️⃣</div>
+          <h3 class="font-semibold mb-2">Get Your Edge</h3>
+          <p class="text-slate-400 text-sm">Receive instant profit potential & resale value</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="py-12 border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <p class="text-3xl sm:text-4xl font-bold gradient-text">$2</p>
+          <p class="text-slate-400 text-sm mt-1">Per Analysis</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl sm:text-4xl font-bold gradient-text">&lt;30s</p>
+          <p class="text-slate-400 text-sm mt-1">Response Time</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl sm:text-4xl font-bold gradient-text">76%</p>
+          <p class="text-slate-400 text-sm mt-1">Avg ROI Found</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl sm:text-4xl font-bold gradient-text">24/7</p>
+          <p class="text-slate-400 text-sm mt-1">Always Available</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-4">
+          Everything you need to
+          <span class="gradient-text"> flip smarter</span>
+        </h2>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+          From scanning to listing to competing—Thrift Tok has you covered
+        </p>
+      </div>
+
+      <!-- Feature Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div class="p-6 rounded-2xl border bg-slate-800/80 border-emerald-500/50 shadow-xl shadow-emerald-500/10">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Quick Scan</h3>
+          <p class="text-slate-400 text-sm">Price any item in under 5 seconds</p>
+        </div>
+        <div class="p-6 rounded-2xl border bg-slate-800/30 border-slate-700 hover:border-slate-600 transition">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-400 to-purple-400 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">AI Powered</h3>
+          <p class="text-slate-400 text-sm">Smart pricing & listing generation</p>
+        </div>
+        <div class="p-6 rounded-2xl border bg-slate-800/30 border-slate-700 hover:border-slate-600 transition">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-red-400 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Thrift Maps</h3>
+          <p class="text-slate-400 text-sm">Find hotspots near you</p>
+        </div>
+        <div class="p-6 rounded-2xl border bg-slate-800/30 border-slate-700 hover:border-slate-600 transition">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-400 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Gamified</h3>
+          <p class="text-slate-400 text-sm">Compete & climb leaderboards</p>
+        </div>
+      </div>
+
+      <!-- Feature Detail Cards -->
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- AI Suite -->
+        <div class="bg-gradient-to-br from-violet-500/10 to-purple-500/10 rounded-3xl p-8 border border-violet-500/20">
+          <div class="flex items-center space-x-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-400 to-purple-400 flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">AI Intelligence Suite</h3>
+              <p class="text-slate-400 text-sm">Three agents, infinite possibilities</p>
+            </div>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex items-center space-x-3 p-3 bg-slate-900/50 rounded-xl">
+              <span class="text-2xl">💰</span>
+              <div>
+                <p class="font-semibold text-sm">Pricing Agent</p>
+                <p class="text-xs text-slate-400">Condition-aware price recommendations</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-3 p-3 bg-slate-900/50 rounded-xl">
+              <span class="text-2xl">📝</span>
+              <div>
+                <p class="font-semibold text-sm">Listing Agent</p>
+                <p class="text-xs text-slate-400">One-tap professional listings</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-3 p-3 bg-slate-900/50 rounded-xl">
+              <span class="text-2xl">🔍</span>
+              <div>
+                <p class="font-semibold text-sm">Product Guide</p>
+                <p class="text-xs text-slate-400">Authentication & expertise on demand</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coming Soon -->
+        <div class="bg-gradient-to-br from-yellow-500/10 to-amber-500/10 rounded-3xl p-8 border border-yellow-500/20">
+          <div class="flex items-center space-x-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-400 flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">Coming Soon</h3>
+              <p class="text-slate-400 text-sm">Full app launching soon</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div class="p-3 bg-slate-900/50 rounded-xl text-center">
+              <span class="text-2xl">🎯</span>
+              <p class="font-semibold text-sm mt-1">Daily Challenges</p>
+              <p class="text-xs text-slate-500">3 new daily</p>
+            </div>
+            <div class="p-3 bg-slate-900/50 rounded-xl text-center">
+              <span class="text-2xl">🏆</span>
+              <p class="font-semibold text-sm mt-1">Leaderboards</p>
+              <p class="text-xs text-slate-500">5 categories</p>
+            </div>
+            <div class="p-3 bg-slate-900/50 rounded-xl text-center">
+              <span class="text-2xl">⭐</span>
+              <p class="font-semibold text-sm mt-1">XP & Levels</p>
+              <p class="text-xs text-slate-500">Up to Lv.100</p>
+            </div>
+            <div class="p-3 bg-slate-900/50 rounded-xl text-center">
+              <span class="text-2xl">🔥</span>
+              <p class="font-semibold text-sm mt-1">Streaks</p>
+              <p class="text-xs text-slate-500">3x XP boost</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="community" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-4">
+          Loved by <span class="gradient-text">resellers everywhere</span>
+        </h2>
+        <p class="text-xl text-slate-400">See what the community is saying</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 hover:border-emerald-500/30 transition">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-2xl">👩‍🦰</div>
+            <div>
+              <p class="font-semibold">Sarah M.</p>
+              <p class="text-sm text-slate-400">@thriftqueen</p>
+            </div>
+            <div class="ml-auto px-2 py-1 bg-emerald-500/20 rounded-lg">
+              <span class="text-emerald-400 text-sm font-bold">+$2,400</span>
+            </div>
+          </div>
+          <p class="text-slate-300">Made $2,400 last month using Thrift Tok. The AI pricing is scary accurate! 🔥</p>
+        </div>
+        <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 hover:border-emerald-500/30 transition">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-2xl">👨🏾</div>
+            <div>
+              <p class="font-semibold">Marcus J.</p>
+              <p class="text-sm text-slate-400">@flipking</p>
+            </div>
+            <div class="ml-auto px-2 py-1 bg-emerald-500/20 rounded-lg">
+              <span class="text-emerald-400 text-sm font-bold">+$332</span>
+            </div>
+          </div>
+          <p class="text-slate-300">The store hotspot feature is a game changer. Found a vintage Pendleton for $8, sold for $340.</p>
+        </div>
+        <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 hover:border-emerald-500/30 transition">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-2xl">👩🏻</div>
+            <div>
+              <p class="font-semibold">Emily R.</p>
+              <p class="text-sm text-slate-400">@vintagehunter</p>
+            </div>
+            <div class="ml-auto px-2 py-1 bg-emerald-500/20 rounded-lg">
+              <span class="text-emerald-400 text-sm font-bold">+$890</span>
+            </div>
+          </div>
+          <p class="text-slate-300">Finally an app that makes listing easy. One tap and I'm cross-posted everywhere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-4">
+          Simple, <span class="gradient-text">transparent</span> pricing
+        </h2>
+        <p class="text-xl text-slate-400">Pay per analysis. No subscriptions required.</p>
+      </div>
+
+      <!-- Single Pricing Card -->
+      <div class="max-w-md mx-auto">
+        <div class="relative p-8 rounded-3xl bg-gradient-to-b from-emerald-500/10 to-cyan-500/10 border border-emerald-500/30">
+          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full text-xs font-bold text-slate-900">
+            SIMPLE & FAST
+          </div>
+          <div class="text-center">
+            <h3 class="text-2xl font-bold mb-2">Pay Per Scan</h3>
+            <p class="text-5xl font-bold mb-2">$2</p>
+            <p class="text-slate-400 mb-6">per analysis</p>
+            <ul class="text-left space-y-3 mb-8">
+              <li class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>Instant profit analysis</span>
+              </li>
+              <li class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>Comparable sales data</span>
+              </li>
+              <li class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>Buy/Pass recommendation</span>
+              </li>
+              <li class="flex items-center space-x-3">
+                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>Response in under 30 seconds</span>
+              </li>
+            </ul>
+            <a href="sms:+18337758007" class="block w-full py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl font-semibold text-lg text-slate-900 hover:shadow-lg hover:shadow-emerald-500/25 transition text-center">
+              Try It Now →
+            </a>
+            <p class="text-sm text-slate-500 mt-4">Text any FB Marketplace link to get started</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-6">
+        Ready to thrift
+        <span class="gradient-text"> smarter</span>?
+      </h2>
+      <p class="text-xl text-slate-400 mb-8">
+        Join resellers making better sourcing decisions every day.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="sms:+18337758007" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl font-semibold text-lg hover:shadow-lg hover:shadow-emerald-500/25 transition-all transform hover:scale-105 flex items-center justify-center">
+          Text (833) 775-8007
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+        <p class="text-slate-400 text-sm">Send any FB Marketplace link</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="flex items-center space-x-2 mb-4 md:mb-0">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+          </div>
+          <span class="font-bold">Thrift<span class="text-emerald-400">Tok</span></span>
+        </div>
+        <div class="flex items-center space-x-6 text-sm text-slate-400">
+          <a href="#" class="hover:text-white transition">Privacy</a>
+          <a href="#" class="hover:text-white transition">Terms</a>
+          <a href="mailto:support@thrifttok.com" class="hover:text-white transition">Support</a>
+        </div>
+        <p class="text-sm text-slate-500 mt-4 md:mt-0">© 2025 Thrift Tok. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('mobileMenu').classList.add('hidden');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
